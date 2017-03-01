@@ -64,12 +64,10 @@ def checkFiels(path, coll):
 	oldPath = os.getcwd();
 	os.chdir(path)
 	for fileName in os.listdir(path):
-		if not isOCFile(fileName):
-			continue
 		absPath = os.path.abspath(fileName)
 		if os.path.isdir(absPath):
 			checkFiels(absPath, coll)
-		elif os.path.isfile(absPath):
+		elif os.path.isfile(absPath) and isOCFile(fileName):
 			fd = open(absPath, 'r')
 			lineNo = 1
 			for line in fd:
@@ -87,9 +85,8 @@ def checkFiels(path, coll):
 
 # 根据检测结果，生成表格
 # def makeTable(coll:list md:str):
-def makeTable(coll, md):
-	filePath = os.getcwd() + "/" + md + ".html"
-	fd = open(filePath,'w')
+def makeTable(coll, outputFile):
+	fd = open(outputFile,'w')
 	fd.write(html_part1)
 	index = 1
 	for data in coll:
@@ -124,9 +121,20 @@ html_part2 = '''
 </body>
 </html>
 '''
-srcDir = "/Users/admin/Desktop/Projects/7.3x_NewEngine/iosNavi/code/iosNewNavi"
-print(srcDir)
+argc = len(sys.argv)
+print sys.argv,argc
+# check in path
+argv1 = "./"
+# output to path
+argv2 = "./"
+if argc >= 2:
+	argv1 = sys.argv[1]
+if argc >= 3:
+	argv2 = sys.argv[2]
+srcDir = os.path.abspath(argv1)
+outputFile = os.path.abspath(argv2) + "/result.html"
+print("will check files in path: %s, and the checking_result will write to file: %s" % (srcDir, outputFile))
 coll = []
-checkFiels(srcDir,coll)
-makeTable(coll,"out")
-os.system("open out.html")
+checkFiels(srcDir, coll)
+makeTable(coll, outputFile)
+os.system("open %s" % outputFile)
