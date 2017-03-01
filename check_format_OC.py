@@ -133,7 +133,12 @@ if argc >= 3:
 	argv2 = sys.argv[2]
 srcDir = os.path.abspath(argv1)
 outputFile = os.path.abspath(argv2) + "/result.html"
-print("will check files in path: %s, and the checking_result will write to file: %s" % (srcDir, outputFile))
+print('''
+------------------------------------------------------------------------------------
+will check files in path: %s, 
+and the checking_result will write to file: %s
+------------------------------------------------------------------------------------
+''' % (srcDir, outputFile))
 coll = []
 checkFiels(srcDir, coll)
 makeTable(coll, outputFile)
