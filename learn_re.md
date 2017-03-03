@@ -28,4 +28,13 @@
 * \W \wd的 补集
 * \\ 匹配转义符号
 ***
-## demo
+## res模块函数
+* match : Match a regular expression pattern to the beginning of a string.
+从字符串开头开始匹配正则表达式
+* search : 从字符串中查找第一个匹配项
+* sub : 替换匹配项为指定字符串
+* subn : 同sub，只是返回结果为替换个数
+* split : 使用匹配项分割字符串
+* findall : 查找所有匹配项，返回匹配项列表(list)
+* compile : 编译表达式，返回正则表达式对象
+***  
