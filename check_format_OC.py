@@ -121,25 +121,26 @@ html_part2 = '''
 </body>
 </html>
 '''
-argc = len(sys.argv)
-print sys.argv,argc
-# check in path
-argv1 = "./"
-# output to path
-argv2 = "./"
-if argc >= 2:
-	argv1 = sys.argv[1]
-if argc >= 3:
-	argv2 = sys.argv[2]
-srcDir = os.path.abspath(argv1)
-outputFile = os.path.abspath(argv2) + "/result.html"
-print('''
-------------------------------------------------------------------------------------
-will check files in path: %s, 
-and the checking_result will write to file: %s
-------------------------------------------------------------------------------------
-''' % (srcDir, outputFile))
-coll = []
-checkFiels(srcDir, coll)
-makeTable(coll, outputFile)
-os.system("open %s" % outputFile)
+if __name__ == '__main__':
+	argc = len(sys.argv)
+	print sys.argv,argc
+	# check in path
+	argv1 = "./"
+	# output to path
+	argv2 = "./"
+	if argc >= 2:
+		argv1 = sys.argv[1]
+	if argc >= 3:
+		argv2 = sys.argv[2]
+	srcDir = os.path.abspath(argv1)
+	outputFile = os.path.abspath(argv2) + "/result.html"
+	print('''
+		------------------------------------------------------------------------------------
+		will check files in path: %s, 
+		and the checking_result will write to file: %s
+		------------------------------------------------------------------------------------
+	''' % (srcDir, outputFile))
+	coll = []
+	checkFiels(srcDir, coll)
+	makeTable(coll, outputFile)
+	os.system("open %s" % outputFile)
