@@ -59,7 +59,7 @@ def getReturnType(line):
 def getVarList(line):
 	pattern = None
 	if line.count(":") == 0:
-		return [(line.split(")")[1].replace(";","").replace(" ",""), None, None)]
+		return [(line.split(")")[1].split(";")[0].replace(";","").replace(" ", ""),),]
 	else:
 		pattern = re.compile(r" ?[\w_]+ ?: ?\( ?[\w_]+ ?\*? ?\) ?[\w_]+")
 		coll = re.findall(pattern, line)
@@ -87,6 +87,7 @@ def formatFuncDeclaration(line):
 	tmp = preprocess(line)
 
 	var_list = getVarList(tmp)
+	print var_list
 	if not (var_list and (len(var_list) > 1 or (len(var_list) == 1 and len(var_list[0]) == 1))):
 		return line
 	func_type = getFuncType(tmp)
@@ -98,6 +99,7 @@ def formatFuncDeclaration(line):
 			newline = newline + var[0]
 			break
 		else:
+			print var
 			newline = newline + var[0] + ":(" + var[1] + ")" + var[2] + " "
 	newline = newline.strip() + ";"
 	if note:
@@ -110,7 +112,9 @@ if __name__ == '__main__':
 	pro1 = "@ property ( nonatomic	, copy, nullable)UIColor<deleagte> * backgroundColor; 		/* sss 	*/  \n"
 	print pro1, formatPropertyLine(pro1)
 	
-	declear = "  - ( CGFloat* ) tableView:( UITableView  	*)tableView heightForHeaderInSection:	(NSInteger)section; //  	xxxx\n"
+	declear = "  - ( CGFloat* ) tableView  ; //  	xxxx\n"
 	print declear, formatFuncDeclaration(declear)
+	tu = (1,)
+	print tu, len(tu)
 
 
